@@ -3,5 +3,9 @@
     "header_title": "Tìm kiếm dễ dàng hơn bao giờ hết.",
     "search_header_icon_alt": "Icon tìm kiếm",
     "algolia_header_icon_alt": "Đi đến algolia",
-    "header_search_placeholder": "Sản phẩm, thương hiệu, màu sắc, …"
+    "header_search_placeholder": "Sản phẩm, thương hiệu, màu sắc, …",
+    "network_response_was_not_ok": "Kết quả phản hồi không tốt",
+    "loading_ellipsis": "Đang tải...",
+    "rating_score": "Điểm đánh giá",
+    "do_not_have_category": "Không có tên thể loại"
 }

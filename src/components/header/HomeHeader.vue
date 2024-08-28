@@ -9,11 +9,16 @@ export default defineComponent({
   setup() {
     const { t } = useI18n()
     const paramsStore = useParamsStore()
-    const searchQuery = ref(paramsStore.searchQuery)
-    const debouncedSearchQuery = useDebounce(searchQuery, 1000)
+    const searchQuery = ref(paramsStore.$state.searchQuery)
+    const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
-    watch(debouncedSearchQuery, (newValue) => {            
+    watch(debouncedSearchQuery, (newValue) => {           
+      searchQuery.value = newValue 
       paramsStore.setSearchQuery(newValue)
+    })
+
+    watch(() => paramsStore.$state.searchQuery, (newParams) => {
+      searchQuery.value = newParams
     })
 
     return {
