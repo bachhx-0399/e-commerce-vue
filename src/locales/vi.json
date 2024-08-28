@@ -1,7 +1,7 @@
 {
-    "Home": "Trang chủ",
-    "Header_Title": "Tìm kiếm dễ dàng hơn bao giờ hết.",
-    "Search_Header_Icon_Alt": "Icon tìm kiếm",
-    "Algolia_Header_Icon_Alt": "Đi đến algolia",
-    "Header_Search_Placeholder": "Sản phẩm, thương hiệu, màu sắc, …"
+    "home": "Trang chủ",
+    "header_title": "Tìm kiếm dễ dàng hơn bao giờ hết.",
+    "search_header_icon_alt": "Icon tìm kiếm",
+    "algolia_header_icon_alt": "Đi đến algolia",
+    "header_search_placeholder": "Sản phẩm, thương hiệu, màu sắc, …"
 }

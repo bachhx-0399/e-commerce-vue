@@ -1,5 +1,5 @@
 // src/composables/useDebounce.ts
-import { ref, watch, Ref } from 'vue';
+import { ref, watch, type Ref } from 'vue';
 
 export function useDebounce<T>(value: Ref<T>, delay: number) {
   const debouncedValue = ref(value.value) as Ref<T>;
