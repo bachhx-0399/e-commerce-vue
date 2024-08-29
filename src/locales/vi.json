@@ -7,5 +7,13 @@
     "network_response_was_not_ok": "Kết quả phản hồi không tốt",
     "loading_ellipsis": "Đang tải...",
     "rating_score": "Điểm đánh giá",
-    "do_not_have_category": "Không có tên thể loại"
+    "do_not_have_category": "Không có tên thể loại",
+    "category": "Thể loại",
+    "filter_icon": "Icon lọc",
+    "collapse": "Thu gọn",
+    "expan": "Mở rộng",
+    "filter": "Bộ lọc",
+    "error": "Lỗi",
+    "reset_filters": "Đặt lại bộ lọc",
+    "see_results": "Xem kết quả"
 }

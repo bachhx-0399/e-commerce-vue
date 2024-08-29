@@ -19,7 +19,7 @@ export default defineComponent({
         const filteredCards = ref<CardProps[]>([])
         const filterParams = useParamsStore().$state
 
-        const fetchData = async () => {
+        const fetchData = async (): Promise<void> => {
             try {
                 const response = await fetch(`${ENV.VITE_SERVER_DOMAIN}/cards`)
                 if (!response.ok) {
@@ -35,16 +35,16 @@ export default defineComponent({
             }
         }
 
-        onMounted(() => {
+        onMounted((): void => {
             fetchData()
         })
 
         watch(
             filterParams,
-            (newFilterParams) => {
+            (newFilterParams): void => {
                 if (newFilterParams.searchQuery !== undefined) {
                     const lowerCaseQuery = newFilterParams.searchQuery.toLowerCase()
-                    filteredCards.value = cards.value.filter((card) => {
+                    filteredCards.value = cards.value.filter((card): boolean => {
                         const lowerCaseName = card.name.toLowerCase()
                         const lowerCaseDescription = card.description.toLowerCase()
 
@@ -73,9 +73,18 @@ export default defineComponent({
     <div class="container m-0 max-w-[948px] p-0">
         <header class="border-b-2 border-inherit p-0">Body header</header>
         <div v-if="loading">{{ t('loading_ellipsis') }}</div>
-        <div v-else-if="isError">{{ t('Error') }}: {{ isError }}</div>
+        <div v-else-if="isError">{{ t('error') }}: {{ isError }}</div>
         <div v-else class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <CardItem v-for="(card, index) in filteredCards" :key="index" :card="card" />
+        </div>
+        <div class="fixed bottom-10 left-1/2 flex -translate-x-1/2 items-center justify-center">
+            <button
+                class="flex h-9 w-24 items-center gap-2 rounded bg-yellow-500 px-2 py-0.5 font-bold text-white shadow-lg shadow-gray-300 backdrop-blur-lg md:hidden"
+                @click="$emit('toggle-sidebar')"
+            >
+                <img class="h-6 w-6" src="/images/filter.svg" :alt="t('filter_icon')" />
+                {{ t('filter') }}
+            </button>
         </div>
     </div>
 </template>
