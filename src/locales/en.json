@@ -3,5 +3,9 @@
     "header_title": "Stop looking for an item — find it.",
     "search_header_icon_alt": "Search icon",
     "algolia_header_icon_alt": "Go to algolia",
-    "header_search_placeholder": "Product, brand, color, …"
+    "header_search_placeholder": "Product, brand, color, …",
+    "network_response_was_not_ok": "Network response was not ok",
+    "loading_ellipsis": "Loading...",
+    "rating_score": "Rating Score",
+    "do_not_have_category": "Do not have category"
 }
