@@ -17,5 +17,9 @@
     "reset_filters": "Reset filters",
     "see_results": "See Results",
     "no_matches": "Sorry, we can't find any matches to your query!",
-    "try_another_query": "Please try another query."
+    "try_another_query": "Please try another query.",
+    "brands": "Brands",
+    "sidebar_search_branch_placeholder": "Search for brands…",
+    "delete_icon": "Delete icon",
+    "clear_brands": "Clear brands"
 }

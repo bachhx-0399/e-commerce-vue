@@ -44,8 +44,8 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="container m-0 border-b-2 border-inherit px-0 py-8 flex-grow-1">
-        <div class="pb-4 font-serif text-[12px] font-semibold leading-4 text-[#21243d]">
+    <div class="container m-0 border-b-2 border-inherit px-0 py-8">
+        <div class="pb-4 font-serif text-[18px] font-semibold leading-4 text-[#21243d]">
             {{ t('category') }}
         </div>
         <div class="container m-0 p-0">
