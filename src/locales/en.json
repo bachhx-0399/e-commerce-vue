@@ -7,5 +7,15 @@
     "network_response_was_not_ok": "Network response was not ok",
     "loading_ellipsis": "Loading...",
     "rating_score": "Rating Score",
-    "do_not_have_category": "Do not have category"
+    "do_not_have_category": "Do not have category",
+    "category": "Category",
+    "filter_icon": "Filter icon",
+    "collapse": "Collapse",
+    "expan": "Expan",
+    "filter": "Filter",
+    "error": "Error",
+    "reset_filters": "Reset filters",
+    "see_results": "See Results",
+    "no_matches": "Sorry, we can't find any matches to your query!",
+    "try_another_query": "Please try another query."
 }

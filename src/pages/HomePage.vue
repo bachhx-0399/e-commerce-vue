@@ -16,16 +16,20 @@ export default defineComponent({
         const route = useRoute()
         const router = useRouter()
         const paramsStore = useParamsStore()
-        const params = paramsStore.$state
+        const filterParams = paramsStore.$state
 
-        watch(params, (newFilterParams) => {
+        watch(filterParams, (newFilterParams) => {
 
             const searchParams: Record<string, string> = {}
             const currentParams = router.currentRoute.value.query
-            const { searchQuery } = newFilterParams
+            const { searchQuery, categories } = newFilterParams            
 
             if (searchQuery) {
                 searchParams.searchQuery = searchQuery
+            }
+
+            if (categories.length > 0) {                
+                searchParams.categories = encodeURIComponent(JSON.stringify(categories.join('/')));
             }
 
             // if current params equal new params, we don't need to update
@@ -52,6 +56,15 @@ export default defineComponent({
             if (query.searchQuery !== params.searchQuery) {
                 paramsStore.setSearchQuery(query.searchQuery as string)
             }
+
+            const categoriesQueryString = query.categories as string | undefined
+            if (categoriesQueryString) {
+                const categories = JSON.parse(decodeURIComponent(categoriesQueryString)).split('/')
+                paramsStore.setCategories(categories)
+            } else {
+                paramsStore.setCategories([])
+            }
+
         }, { immediate: true, deep: true })
     }
 })

@@ -17,9 +17,10 @@ export default defineComponent({
         const isError = ref<string | null>(null)
         const cards = ref<CardProps[]>([])
         const filteredCards = ref<CardProps[]>([])
-        const filterParams = useParamsStore().$state
+        const paramsStore = useParamsStore()
+        const filterParams = paramsStore.$state
 
-        const fetchData = async () => {
+        const fetchData = async (): Promise<void> => {
             try {
                 const response = await fetch(`${ENV.VITE_SERVER_DOMAIN}/cards`)
                 if (!response.ok) {
@@ -35,16 +36,19 @@ export default defineComponent({
             }
         }
 
-        onMounted(() => {
+        onMounted((): void => {
             fetchData()
         })
 
         watch(
             filterParams,
-            (newFilterParams) => {
-                if (newFilterParams.searchQuery !== undefined) {
-                    const lowerCaseQuery = newFilterParams.searchQuery.toLowerCase()
-                    filteredCards.value = cards.value.filter((card) => {
+            (newFilterParams): void => {
+                const { searchQuery, categories } = newFilterParams
+                let newFilteredCards = cards.value
+
+                if (searchQuery !== undefined && searchQuery !== '') {
+                    const lowerCaseQuery = searchQuery.toLowerCase()
+                    newFilteredCards = newFilteredCards.filter((card): boolean => {
                         const lowerCaseName = card.name.toLowerCase()
                         const lowerCaseDescription = card.description.toLowerCase()
 
@@ -54,6 +58,14 @@ export default defineComponent({
                         )
                     })
                 }
+
+                if (categories?.length) {
+                    newFilteredCards = newFilteredCards.filter((crd) =>
+                        categories.every((ctg) => crd.categories.includes(ctg))
+                    )
+                }
+
+                filteredCards.value = newFilteredCards
             },
             { immediate: true, deep: true }
         )
@@ -61,7 +73,6 @@ export default defineComponent({
         return {
             loading,
             isError,
-            cards,
             filteredCards,
             t
         }
@@ -71,11 +82,28 @@ export default defineComponent({
 
 <template>
     <div class="container m-0 max-w-[948px] p-0">
-        <header class="border-b-2 border-inherit p-0">Body header</header>
+        <header class="hidden border-b-2 border-inherit p-0 md:block mb-5">Body header</header>
         <div v-if="loading">{{ t('loading_ellipsis') }}</div>
-        <div v-else-if="isError">{{ t('Error') }}: {{ isError }}</div>
-        <div v-else class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div v-else-if="isError">{{ t('error') }}: {{ isError }}</div>
+        <div v-else-if="filteredCards.length > 0"
+            class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <CardItem v-for="(card, index) in filteredCards" :key="index" :card="card" />
+        </div>
+        <div v-else class="container grid grid-cols-1 gap-4 m-auto md:p-0 py-16 px-8">
+            <div class="flex flex-col justify-center items-center w-full">
+                <img class="h-36 w-36 hidden md:block" src="/images/not-found.svg" :alt="t('search_icon')" />
+                <p class="text-center text-2xl font-bold mt-6 max-w-[300px]">{{ t('no_matches') }}</p>
+                <p class="text-center text-sm font-light my-[14px]">{{ t('try_another_query') }}</p>
+                <p class="invisible text-2xl font-bold">{{ t('no_matches') }}</p>
+            </div>
+        </div>
+        <div class="fixed bottom-10 left-1/2 flex -translate-x-1/2 items-center justify-center">
+            <button
+                class="flex h-9 w-24 items-center gap-2 rounded bg-yellow-500 px-2 py-0.5 font-bold text-white shadow-lg shadow-gray-300 backdrop-blur-lg md:hidden"
+                @click="$emit('toggle-sidebar')">
+                <img class="h-6 w-6" src="/images/filter.svg" :alt="t('filter_icon')" />
+                {{ t('filter') }}
+            </button>
         </div>
     </div>
 </template>

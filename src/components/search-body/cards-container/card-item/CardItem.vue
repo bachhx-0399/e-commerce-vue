@@ -18,9 +18,14 @@ export default defineComponent({
     },
     setup(props) {
         const { t } = useI18n()
-        const { image, name, description, price, categories, rating } = props.card
         const paramsStore = useParamsStore()
         const searchTerm = computed(() => paramsStore.$state.searchQuery)
+        const image = computed(() => props.card.image)
+        const name = computed(() => props.card.name)
+        const description = computed(() => props.card.description)
+        const price = computed(() => props.card.price)
+        const categories = computed(() => props.card.categories)
+        const rating = computed(() => props.card.rating)
 
         return {
             t,
@@ -38,7 +43,7 @@ export default defineComponent({
 
 <template>
     <div
-        class="max-w-sm overflow-hidden hover:bg-gray-100 hover:shadow-lg hover:w-[calc(100%+32px)] hover:h-[calc(100%+32px)] hover:p-4 hover:scale hover:rounded-lg transition duration-300 hover:scale-105 hover:z-10"
+        class="max-w-sm overflow-hidden sm:hover:bg-gray-100 sm:hover:shadow-lg sm:hover:w-[calc(100%+32px)] sm:hover:h-[calc(100%+32px)] sm:hover:p-4 sm:hover:scale sm:hover:rounded-lg md:transition md:duration-300 sm:hover:scale-105 sm:hover:z-10"
     >
         <header class="flex aspect-square items-center justify-center">
             <img class="max-w-[174px]" :src="image" :alt="name" />

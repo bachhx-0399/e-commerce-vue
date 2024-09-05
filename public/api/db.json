@@ -48,7 +48,13 @@
                 {
                     "name": "Air Purifiers",
                     "count": 54,
-                    "subCategory": []
+                    "subCategory": [
+                        {
+                            "name": "Air Humidifiers",
+                            "count": 54,
+                            "subCategory": []
+                        }
+                    ]
                 },
                 {
                     "name": "Fans",
@@ -100,7 +106,13 @@
         {
             "name": "Audio",
             "count": 1376,
-            "subCategory": []
+            "subCategory": [
+                {
+                    "name": "Speakers",
+                    "count": 1376,
+                    "subCategory": []
+                }
+            ]
         },
         {
             "name": "Cameras & Camcorders",
