@@ -17,5 +17,9 @@
     "reset_filters": "Đặt lại bộ lọc",
     "see_results": "Xem kết quả",
     "no_matches": "Rất tiếc, chúng tôi không tìm thấy bất kỳ kết quả nào phù hợp với truy vấn của bạn!",
-    "try_another_query": "Vui lòng thử truy vấn khác."
+    "try_another_query": "Vui lòng thử truy vấn khác.",
+    "brands": "Nhãn hiệu",
+    "sidebar_search_branch_placeholder": "Tìm kiếm nhãn hiệu…",
+    "delete_icon": "Icon xóa",
+    "clear_brands": "Xóa nhãn hiệu"
 }

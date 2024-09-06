@@ -43,7 +43,7 @@ export default defineComponent({
         watch(
             filterParams,
             (newFilterParams): void => {
-                const { searchQuery, categories } = newFilterParams
+                const { searchQuery, categories, brands } = newFilterParams
                 let newFilteredCards = cards.value
 
                 if (searchQuery !== undefined && searchQuery !== '') {
@@ -63,6 +63,12 @@ export default defineComponent({
                     newFilteredCards = newFilteredCards.filter((crd) =>
                         categories.every((ctg) => crd.categories.includes(ctg))
                     )
+                }
+
+                if (brands?.length) {
+                    newFilteredCards = newFilteredCards.filter((card) =>
+                        brands.includes(card.brand as string),
+                    );
                 }
 
                 filteredCards.value = newFilteredCards

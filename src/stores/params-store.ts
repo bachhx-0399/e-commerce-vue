@@ -4,6 +4,7 @@ export const useParamsStore = defineStore('params', {
   state: () => ({
     searchQuery: '',
     categories: [] as string[],
+    brands: [] as string[],
   }),
 
   actions: {
@@ -13,9 +14,13 @@ export const useParamsStore = defineStore('params', {
     setCategories(categories: string[]) {
       this.categories = categories;
     },
+    setBrands(brands: string[]) {
+      this.brands = brands;
+    },
     resetParams() {
       this.searchQuery = '';
       this.categories = [];
+      this.brands = [];
     },
   },
 });
