@@ -3,6 +3,7 @@ import CategoryItem from './CategoryItem.vue'
 import { defineComponent, ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ENV } from '@/consts/env.const'
+import { SIDEBAR_TEXT_COLOR } from '@/consts/sidebar.const'
 import type { CategoryProps } from '@/types/category.type'
 
 export default defineComponent({
@@ -37,7 +38,8 @@ export default defineComponent({
             t,
             categories,
             loading,
-            isError
+            isError,
+            SIDEBAR_TEXT_COLOR
         }
     }
 })
@@ -45,7 +47,7 @@ export default defineComponent({
 
 <template>
     <div class="container m-0 border-b-2 border-inherit px-0 py-8">
-        <div class="pb-4 font-serif text-[18px] font-semibold leading-4 text-[#21243d]">
+        <div :class="`text-[${SIDEBAR_TEXT_COLOR}] pb-4 font-serif text-[18px] font-semibold leading-4`">
             {{ t('category') }}
         </div>
         <div class="container m-0 p-0">

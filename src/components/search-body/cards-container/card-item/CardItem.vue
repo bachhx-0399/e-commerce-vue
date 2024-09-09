@@ -3,6 +3,7 @@ import HighlightField from '../../../commons/highlight/HighlightField.vue'
 import { defineComponent, type PropType, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useParamsStore } from '@/stores/params-store'
+import { SIDEBAR_TEXT_COLOR } from '@/consts/sidebar.const'
 import { type CardProps } from '@/types/card.type'
 
 export default defineComponent({
@@ -35,7 +36,8 @@ export default defineComponent({
             price,
             categories,
             rating,
-            searchTerm
+            searchTerm,
+            SIDEBAR_TEXT_COLOR
         }
     }
 })
@@ -49,11 +51,11 @@ export default defineComponent({
             <img class="max-w-[174px]" :src="image" :alt="name" />
         </header>
         <div class="m-0 p-0">
-            <div class="mb-2 mt-3 text-xs font-semibold uppercase text-[#21243d] opacity-70">
+            <div :class="`text-[${SIDEBAR_TEXT_COLOR}] mb-2 mt-3 text-xs font-semibold uppercase opacity-70`">
                 {{ categories[0] || t('do_not_have_category') }}
             </div>
             <h1>
-                <span class="text-sm font-bold leading-5 text-[#21243d]">
+                <span :class="`text-[${SIDEBAR_TEXT_COLOR}] text-sm font-bold leading-5`">
                     <HighlightField :text="name" :searchTerm="searchTerm" class="font-bold" />
                 </span>
             </h1>
