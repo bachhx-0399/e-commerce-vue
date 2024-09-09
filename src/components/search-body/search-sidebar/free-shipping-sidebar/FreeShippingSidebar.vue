@@ -2,10 +2,7 @@
 import { defineComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params-store";
-<<<<<<< HEAD
 import { SIDEBAR_TEXT_COLOR } from "@/consts/sidebar.const";
-=======
->>>>>>> 5d55e45 (Task: Create price, freeshipping, rating)
 
 export default defineComponent({
     name: "FreeShippingSidebar",

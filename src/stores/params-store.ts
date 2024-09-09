@@ -12,8 +12,11 @@ export const useParamsStore = defineStore('params', {
     freeShipping: false,
     sortBy: DEFAULT_SORT_BY,
     hitsPerPage: DEFAULT_HITS_PER_PAGE,
+<<<<<<< HEAD
     colorSearch: '',
     colorsList: [] as string[],
+=======
+>>>>>>> 4ecf49c (Task: Create body header)
     currentPage: 1
   }),
 
