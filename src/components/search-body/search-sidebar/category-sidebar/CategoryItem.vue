@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, toRefs, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useParamsStore } from '@/stores/params-store'
 import type { CategoryProps } from '@/types/category.type'
@@ -18,7 +18,7 @@ export default defineComponent({
     },
     setup(props) {
         const { t } = useI18n()
-        const { categories, parentPath } = props
+        const { categories, parentPath } = toRefs(props)
         const paramsStore = useParamsStore()
         const updatedCategories = ref<CategoryProps[]>([])
         const paramsCategories = computed(() => paramsStore.$state.categories)
@@ -26,8 +26,8 @@ export default defineComponent({
         watch(
             [categories, paramsCategories, parentPath],
             () => {
-                const newCategories = categories.map((category) => {
-                    const fullPath = [...parentPath, category.name]
+                const newCategories = categories.value.map((category) => {
+                    const fullPath = [...parentPath.value, category.name]
                     const isActive = paramsCategories.value.includes(category.name)
                     return { ...category, fullPath, isActive }
                 })

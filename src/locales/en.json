@@ -21,5 +21,15 @@
     "brands": "Brands",
     "sidebar_search_branch_placeholder": "Search for brands…",
     "delete_icon": "Delete icon",
-    "clear_brands": "Clear brands"
+    "clear_brands": "Clear brands",
+    "price": "Price",
+    "free_shipping": "Free shipping",
+    "display_only_items_with_free_shipping": "Display only items with free shipping",
+    "yes": "Yes",
+    "no": "No",
+    "ratings": "Ratings",
+    "star": "Star",
+    "clear_rating": "Clear ratings",
+    "clear_price": "Clear price",
+    "search_icon": "Search icon"
 }

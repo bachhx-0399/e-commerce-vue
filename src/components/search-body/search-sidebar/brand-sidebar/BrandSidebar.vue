@@ -7,6 +7,7 @@ import { useDebounce } from '@/custom-hooks/use-debounce';
 import { useParamsStore } from '@/stores/params-store';
 import { ENV } from '@/consts/env.const';
 import { LIMIT_BRANDS } from '@/consts/brand.const';
+import { SIDEBAR_TEXT_COLOR } from '@/consts/sidebar.const';
 import type { BrandProps } from '@/types/brand.type';
 
 export default defineComponent({
@@ -66,7 +67,8 @@ export default defineComponent({
             loading,
             isError,
             searchValue,
-            filteredBrands
+            filteredBrands,
+            SIDEBAR_TEXT_COLOR
         }
 
     }
@@ -76,9 +78,9 @@ export default defineComponent({
 <template>
     <div class="container m-0 border-b-2 border-inherit px-0 py-8 flex-grow-1">
         <div
-            class="flex justify-between items-center pb-4 font-serif text-[18px] font-semibold leading-4 text-[#21243d]"
+            :class="`text-[${SIDEBAR_TEXT_COLOR}] flex justify-between items-center pb-4 font-serif text-[18px] font-semibold leading-4`"
         >
-            <span>{{ t("brands") }}</span>
+            <span class="font-semibold">{{ t("brands") }}</span>
             <button
                 class="text-sm text-red-500 hover:text-red-700 focus:outline-none flex items-center gap-2"
                 @click="clearAllBrands"
@@ -96,7 +98,7 @@ export default defineComponent({
                         <img src="/images/search.svg" class="size-3" :alt="t('search_header_icon_alt')" />
                     </div>
                     <input
-                        class="peer size-full bg-neutral-700/[.06] px-11 py-1 text-sm font-normal text-[#21243D]/[.8] outline-0"
+                        :class="`text-[${SIDEBAR_TEXT_COLOR}]/[.8] peer size-full bg-neutral-700/[.06] px-11 py-1 text-sm font-normal outline-0`"
                         type="text" :placeholder="t('sidebar_search_branch_placeholder')" v-model="searchValue" />
                 </div>
             </div>
