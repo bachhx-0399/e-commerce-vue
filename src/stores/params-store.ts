@@ -12,12 +12,10 @@ export const useParamsStore = defineStore('params', {
     freeShipping: false,
     sortBy: DEFAULT_SORT_BY,
     hitsPerPage: DEFAULT_HITS_PER_PAGE,
-<<<<<<< HEAD
     colorSearch: '',
     colorsList: [] as string[],
-=======
->>>>>>> 4ecf49c (Task: Create body header)
-    currentPage: 1
+    currentPage: 1,
+    totalPages: 1
   }),
 
   actions: {
@@ -51,6 +49,12 @@ export const useParamsStore = defineStore('params', {
     setColorsList(colorsList: string[]) {
       this.colorsList = colorsList;
     },
+    setCurrentPage(currentPage: number) {
+      this.currentPage = currentPage;
+    },
+    setTotalPages(totalPages: number) {
+      this.totalPages = totalPages;
+    },
     resetParams() {
       this.searchQuery = '';
       this.categories = [];
@@ -62,6 +66,8 @@ export const useParamsStore = defineStore('params', {
       this.colorSearch = '';
       this.colorsList = [];
       this.hitsPerPage = DEFAULT_HITS_PER_PAGE;
+      this.currentPage = 1;
+      this.totalPages = 1
     },
   },
 });

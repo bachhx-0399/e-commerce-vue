@@ -14,9 +14,7 @@ const createCardFromServerData = (props: CardProps): CardProps => {
     const [color, name] = props.name
         .split('-')
         .map((item) => item.trim())
-        .reverse();
-    console.log("name: ", name, "color: ", color);
-    
+        .reverse()
 
     return {
         name: props.name,
@@ -29,7 +27,7 @@ const createCardFromServerData = (props: CardProps): CardProps => {
         brand: props.brand,
         corlor: color ?? 'Black'
     }
-}   
+}
 
 const processServerCardsArray = (props: CardProps[]): CardProps[] => {
     return props.map(createCardFromServerData)

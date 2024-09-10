@@ -41,5 +41,6 @@
     "price_descending": "Price descending",
     "search_color": "Search color",
     "select_color": "Select color",
-    "clear_color": "Clear color"
+    "clear_color": "Clear color",
+    "open_dropdown": "Open dropdown"
 }

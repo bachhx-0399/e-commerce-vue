@@ -1,6 +1,7 @@
 <script lang="ts">
 import CardItem from './card-item/CardItem.vue'
 import HeaderBody from './HeaderBody.vue'
+import PaginationContainer from './PaginationContainer.vue'
 import { computed, defineComponent, ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ENV } from '@/consts/env.const'
@@ -13,17 +14,19 @@ export default defineComponent({
     name: 'MainBody',
     components: {
         CardItem,
-        HeaderBody
+        HeaderBody,
+        PaginationContainer
     },
     setup() {
         const { t } = useI18n()
         const cardsStore = useCardsStore()
+        const paramsStore = useParamsStore()
         const loading = ref<boolean>(true)
         const isError = ref<string | null>(null)
         const cards = computed<CardProps[]>(() => cardsStore.$state.cards)
         const filteredCards = computed<CardProps[]>(() => cardsStore.$state.filteredCards)
-        const paramsStore = useParamsStore()
         const filterParams = paramsStore.$state
+        const totalPages = computed(() => filterParams.totalPages)
 
         const fetchData = async (): Promise<void> => {
             try {
@@ -46,8 +49,8 @@ export default defineComponent({
         })
 
         watch(
-            filterParams,
-            (newFilterParams): void => {
+            [filterParams, cards],
+            ([newFilterParams, newCards]): void => {
                 const {
                     searchQuery,
                     categories,
@@ -58,9 +61,10 @@ export default defineComponent({
                     sortBy,
                     colorsList,
                     hitsPerPage,
-                    currentPage
+                    currentPage,
+                    totalPages
                 } = newFilterParams
-                let newFilteredCards = cards.value.slice()
+                let newFilteredCards = newCards.slice()
 
                 if (searchQuery !== undefined && searchQuery !== '') {
                     const lowerCaseQuery = searchQuery.toLowerCase()
@@ -123,21 +127,29 @@ export default defineComponent({
                     }
                 })
 
+                const updateTotalPage = Math.ceil(newFilteredCards.length / hitsPerPage)
+                paramsStore.setTotalPages(updateTotalPage)
+
                 newFilteredCards = newFilteredCards.slice(
                     (currentPage - 1) * hitsPerPage,
                     currentPage * hitsPerPage
                 )
 
                 cardsStore.setFilteredCards(newFilteredCards)
+
+                if (totalPages !== updateTotalPage) {
+                    paramsStore.setCurrentPage(1)
+                }
             },
             { immediate: true, deep: true }
         )
 
         return {
+            t,
             loading,
             isError,
             filteredCards,
-            t
+            totalPages
         }
     }
 })
@@ -167,6 +179,9 @@ export default defineComponent({
                 <p class="text-center text-sm font-light my-[14px]">{{ t('try_another_query') }}</p>
                 <p class="invisible text-2xl font-bold">{{ t('no_matches') }}</p>
             </div>
+        </div>
+        <div v-if="totalPages > 1" className="flex flex-col items-center">
+            <PaginationContainer />
         </div>
         <div class="fixed bottom-10 left-1/2 flex -translate-x-1/2 items-center justify-center">
             <button
