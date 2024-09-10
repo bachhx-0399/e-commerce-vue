@@ -31,5 +31,15 @@
     "star": "Star",
     "clear_rating": "Clear ratings",
     "clear_price": "Clear price",
-    "search_icon": "Search icon"
+    "search_icon": "Search icon",
+    "clear_filters": "Clear filters",
+    "16_hits_per_page": "16 hits per page",
+    "32_hits_per_page": "32 hits per page",
+    "64_hits_per_page": "64 hits per page",
+    "sort_by_featured": "Sort by featured",
+    "price_ascending": "Price ascending",
+    "price_descending": "Price descending",
+    "search_color": "Search color",
+    "select_color": "Select color",
+    "clear_color": "Clear color"
 }

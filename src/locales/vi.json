@@ -31,5 +31,15 @@
     "star": "Sao",
     "clear_rating": "Xóa đánh giá",
     "clear_price": "Xóa giá",
-    "search_icon": "Icon tìm kiếm"
+    "search_icon": "Icon tìm kiếm",
+    "clear_filters": "Xóa bộ lọc",
+    "16_hits_per_page": "16 sản phẩm trong một trang",
+    "32_hits_per_page": "32 sản phẩm trong một trang",
+    "64_hits_per_page": "64 sản phẩm trong một trang",
+    "sort_by_featured": "Sắp xếp theo sản phẩm",
+    "price_ascending": "Giá tăng dần",
+    "price_descending": "Giá giảm dần",
+    "search_color": "Tìm kiếm màu sắc",
+    "select_color": "Chọn màu sắc",
+    "clear_color": "Xóa màu sắc"
 }

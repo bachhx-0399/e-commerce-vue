@@ -1,17 +1,19 @@
 <script lang="ts">
 import CardItem from './card-item/CardItem.vue'
+import HeaderBody from './HeaderBody.vue'
 import { computed, defineComponent, ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ENV } from '@/consts/env.const'
 import { MIN_PRICE, MAX_PRICE } from '@/consts/price-range-const'
 import { useParamsStore } from '@/stores/params-store'
 import { useCardsStore } from '@/stores/cards-store'
-import { type CardProps } from '@/types/card.type'
+import { type CardProps, processServerCardsArray } from '@/types/card.type'
 
 export default defineComponent({
     name: 'MainBody',
     components: {
-        CardItem
+        CardItem,
+        HeaderBody
     },
     setup() {
         const { t } = useI18n()
@@ -29,7 +31,7 @@ export default defineComponent({
                 if (!response.ok) {
                     throw new Error(t('network_response_was_not_ok'))
                 }
-                const data = await response.json()
+                const data = processServerCardsArray(await response.json())
                 cardsStore.setCards(data)
                 cardsStore.setFilteredCards(data)
             } catch (error) {
@@ -46,9 +48,19 @@ export default defineComponent({
         watch(
             filterParams,
             (newFilterParams): void => {
-                const { searchQuery, categories, brands, priceRangeValue, rating, freeShipping } =
-                    newFilterParams
-                let newFilteredCards = cards.value
+                const {
+                    searchQuery,
+                    categories,
+                    brands,
+                    priceRangeValue,
+                    rating,
+                    freeShipping,
+                    sortBy,
+                    colorsList,
+                    hitsPerPage,
+                    currentPage
+                } = newFilterParams
+                let newFilteredCards = cards.value.slice()
 
                 if (searchQuery !== undefined && searchQuery !== '') {
                     const lowerCaseQuery = searchQuery.toLowerCase()
@@ -83,6 +95,14 @@ export default defineComponent({
                     newFilteredCards = newFilteredCards.filter((card) => card.rating >= rating)
                 }
 
+                if (colorsList?.length) {
+                    newFilteredCards = newFilteredCards.filter((card) =>
+                        colorsList.some((color) =>
+                            card.name.toLowerCase().includes(color.toLowerCase())
+                        )
+                    )
+                }
+
                 cardsStore.setMaxPrice(newFilteredCards)
 
                 const [min, max] = priceRangeValue
@@ -91,6 +111,22 @@ export default defineComponent({
                         (card) => card.price >= min && card.price <= max
                     )
                 }
+
+                newFilteredCards = newFilteredCards.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'instant_search_price_asc':
+                            return a.price - b.price
+                        case 'instant_search_price_desc':
+                            return b.price - a.price
+                        default:
+                            return 0
+                    }
+                })
+
+                newFilteredCards = newFilteredCards.slice(
+                    (currentPage - 1) * hitsPerPage,
+                    currentPage * hitsPerPage
+                )
 
                 cardsStore.setFilteredCards(newFilteredCards)
             },
@@ -109,7 +145,7 @@ export default defineComponent({
 
 <template>
     <div class="container m-0 max-w-[948px] p-0">
-        <header class="hidden border-b-2 border-inherit p-0 md:block mb-5">Body header</header>
+        <header class="md:border-b-2 md:border-inherit p-0 md:mb-5"><HeaderBody /></header>
         <div v-if="loading">{{ t('loading_ellipsis') }}</div>
         <div v-else-if="isError">{{ t('error') }}: {{ isError }}</div>
         <div
