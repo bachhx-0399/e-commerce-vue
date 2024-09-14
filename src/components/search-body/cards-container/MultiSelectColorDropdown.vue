@@ -119,7 +119,7 @@ export default {
 </script>
 
 <template>
-    <div class="relative text-xs text-opacity-70 font-normal max-w-64 min-w-36 w-full">
+    <div class="relative text-xs text-opacity-70 font-normal max-w-64 w-full">
         <div v-if="loading">{{ t('loading_ellipsis') }}</div>
         <div v-else-if="isError">{{ t('error') }}: {{ isError }}</div>
         <template v-else>

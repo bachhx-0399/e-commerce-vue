@@ -39,7 +39,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="flex min-h-16 md:min-h-20 items-center justify-end">
+    <div class="flex min-h-16 md:min-h-20 items-center md:justify-end justify-between">
         <div class="h-4 w-28 rounded-md focus:outline-none">
             <CustomSelect
                 :value="sortBy || 'instant_search'"
@@ -51,10 +51,10 @@ export default defineComponent({
                 @change="handleSortChange"
             />
         </div>
-        <div class="ml-12 h-4 w-28 rounded-md focus:outline-none">
+        <div class="md:ml-12 h-4 w-fit md:w-28 rounded-md focus:outline-none">
             <MultiSelectColorDropdown />
         </div>
-        <div class="ml-12 h-4 w-28 rounded-md focus:outline-none">
+        <div class="md:ml-12 h-4 w-28 rounded-md focus:outline-none">
             <CustomSelect
                 :value="hitsPerPage || 16"
                 :options="[

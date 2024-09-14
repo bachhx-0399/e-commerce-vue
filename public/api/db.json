@@ -1,4 +1,9 @@
 {
+    "users": [
+        { "id": 1, "email": "0606bach@gmail.com", "password": "111111" },
+        { "id": 2, "email": "abc@gmail.com", "password": "111111" },
+        { "id": 3, "email": "123@gmail.com", "password": "111111" }
+    ],
     "colors": [
         { "name": "Black" },
         { "name": "White" },
