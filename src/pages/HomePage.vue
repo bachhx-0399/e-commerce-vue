@@ -1,7 +1,8 @@
 <script lang="ts">
-import HomeHeader from '../components/header/HomeHeader.vue'
+import CartTooltip from '@/components/cart/CartTooltip.vue'
+import HomeHeader from '@/components/header/HomeHeader.vue'
 import SearchBody from '@/components/search-body/SearchBody.vue'
-import { defineComponent, watch } from 'vue'
+import { defineComponent, watch, ref } from 'vue'
 import { useParamsStore } from '@/stores/params-store'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
@@ -11,6 +12,7 @@ import { DEFAULT_HITS_PER_PAGE, DEFAULT_SORT_BY } from '@/consts/default-params.
 export default defineComponent({
     name: 'HomePage',
     components: {
+        CartTooltip,
         HomeHeader,
         SearchBody
     },
@@ -19,6 +21,11 @@ export default defineComponent({
         const router = useRouter()
         const paramsStore = useParamsStore()
         const filterParams = paramsStore.$state
+        const isOpenCart = ref(false)
+
+        watch(isOpenCart, () => {
+            console.log(isOpenCart.value);
+        })
 
         watch(filterParams, (newFilterParams) => {
             const searchParams: Record<string, string> = {}
@@ -169,11 +176,18 @@ export default defineComponent({
             },
             { immediate: true, deep: true }
         )
+
+        return {
+            isOpenCart
+        }
     }
 })
 </script>
 
 <template>
-    <HomeHeader />
+    <template v-if="isOpenCart">
+        <CartTooltip v-model="isOpenCart" />
+    </template>
+    <HomeHeader v-model="isOpenCart" />
     <SearchBody />
 </template>

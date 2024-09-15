@@ -60,5 +60,6 @@
     "popularity": "Sự phổ biến",
     "price_range": "Phạm vi giá",
     "close": "Đóng",
-    "remove_from_cart": "Xóa trong giỏ hàng"
+    "remove_from_cart": "Xóa trong giỏ hàng",
+    "add_to_cart": "Thêm vào giỏ hàng"
 }

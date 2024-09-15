@@ -60,5 +60,6 @@
     "popularity": "Popularity",
     "price_range": "Price Range",
     "close": "Close",
-    "remove_from_cart": "Remove from cart"
+    "remove_from_cart": "Remove from cart",
+    "add_to_cart": "Add to cart"
 }
