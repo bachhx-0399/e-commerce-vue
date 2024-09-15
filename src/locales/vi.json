@@ -60,5 +60,17 @@
     "popularity": "Sự phổ biến",
     "price_range": "Phạm vi giá",
     "close": "Đóng",
-    "remove_from_cart": "Xóa trong giỏ hàng"
+    "remove_from_cart": "Xóa trong giỏ hàng",
+    "add_to_cart": "Thêm vào giỏ hàng",
+    "images": "Hình ảnh",
+    "name": "Tên",
+    "amount": "Số lượng",
+    "manipulation": "Thao tác",
+    "unit_price": "Đơn giá",
+    "delete": "Xóa",
+    "your_cart_is_empty": "Giỏ hàng trống",
+    "your_cart": "Giỏ hàng của bạn",
+    "total": "Tổng cộng",
+    "checkbox": "Checkbox",
+    "payment": "Thanh toán"
 }

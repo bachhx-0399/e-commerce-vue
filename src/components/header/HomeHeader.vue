@@ -7,17 +7,19 @@ import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { useLoginStore } from '@/stores/login-store'
+import { useCartStore } from '@/stores/cart-store'
 
 export default defineComponent({
-  setup() {
+  setup(props, { emit }) {
     const { locale, t } = useI18n()
     const router = useRouter()
     const paramsStore = useParamsStore()
     const loginStore = useLoginStore()
+    const cartStore = useCartStore()
     const searchQuery = ref(paramsStore.$state.searchQuery)
     const isLoggedIn = computed(() => loginStore.$state.isLoggedIn);
     const currentLanguage = ref('en');
-    const cartItems = ref([]);
+    const cartItems = computed(() => cartStore.$state.cart);
     const debouncedSearchQuery = useDebounce(searchQuery, 300)
     const isOpen = ref(false);
 
@@ -40,7 +42,7 @@ export default defineComponent({
     const goToCart = () => {
       // Check is logged in
       if (isLoggedIn.value === true) {
-        router.push({ path: '/cart' })
+        emit('update:modelValue', true);
       } else {
         router.push({ path: '/login' })
         alert(t('please_login_first'))

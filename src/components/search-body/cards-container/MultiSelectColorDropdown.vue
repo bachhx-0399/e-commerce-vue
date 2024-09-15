@@ -93,8 +93,8 @@ export default {
             ([newDebouncedSearchTerm, newFetchedColors]) => {
                 const newFilteredColors = newDebouncedSearchTerm
                     ? newFetchedColors.filter((color) =>
-                          color.name.toLowerCase().includes(newDebouncedSearchTerm.toLowerCase())
-                      )
+                        color.name.toLowerCase().includes(newDebouncedSearchTerm.toLowerCase())
+                    )
                     : newFetchedColors
                 filteredColors.value = newFilteredColors
             }
@@ -123,44 +123,34 @@ export default {
         <div v-if="loading">{{ t('loading_ellipsis') }}</div>
         <div v-else-if="isError">{{ t('error') }}: {{ isError }}</div>
         <template v-else>
-            <div
-                class="cursor-pointer flex items-center justify-between w-fit bg-gray-100 min-w-24"
-                @click="toggleDropdown"
-            >
+            <div class="cursor-pointer flex items-center justify-between w-fit bg-gray-100 min-w-24"
+                @click="toggleDropdown">
                 <span class="overflow-ellipsis max-w-36">{{ selectedColors }}</span>
-                <img
-                    src="/images/down-arrow-svgrepo-com.svg"
-                    class="size-[10px]"
-                    :alt="t('open_dropdown')"
-                />
+                <img src="/images/down-arrow-svgrepo-com.svg" class="size-[10px]" :alt="t('open_dropdown')" />
             </div>
 
-            <div v-if="isOpen" class="absolute border mt-1 bg-white rounded shadow w-full">
-                <input
-                    type="text"
-                    v-model="searchTerm"
-                    class="w-full box-sizing: border-box border-b min-h-6 px-2 mt-2"
-                    :placeholder="t('search_color')"
-                />
+            <div v-if="isOpen" class="absolute border mt-1 bg-white rounded shadow w-full min-w-48 z-30">
+                <input type="text" v-model="searchTerm" class="w-full box-sizing: border-box border-b min-h-6 px-2 mt-2"
+                    :placeholder="t('search_color')" />
 
                 <ul class="max-h-40 overflow-auto">
                     <li v-for="color in filteredColors" :key="color.name" class="p-2">
                         <label class="flex items-center">
-                            <input
-                                type="checkbox"
-                                class="mr-2"
-                                :value="color"
-                                :checked="colorsList.includes(color.name)"
-                                @change="toggleColor(color.name)"
-                            />
+                            <input type="checkbox" class="mr-2" :value="color"
+                                :checked="colorsList.includes(color.name)" @change="toggleColor(color.name)" />
                             <HighlightField :text="color.name" :searchTerm="searchTerm" />
                         </label>
                     </li>
                 </ul>
 
-                <button class="p-2 text-red-500 w-full" @click="clearSelection">
-                    {{ t('clear_color') }}
-                </button>
+                <div class="flex justify-between p-2 pr-6 mt-3">
+                    <button class="p-2 text-white rounded bg-red-400 hover:bg-red-500" @click="toggleDropdown">
+                        {{ t('close') }}
+                    </button>
+                    <button class="p-2 text-white rounded bg-red-400 hover:bg-red-500" @click="clearSelection">
+                        {{ t('clear_color') }}
+                    </button>
+                </div>
             </div>
         </template>
     </div>

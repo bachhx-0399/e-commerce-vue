@@ -12,8 +12,12 @@ export const useCartStore = defineStore('cart', {
     actions: {
         addToCart(cartItem: CartItemInterface) {
             // push and ovewrite the same item
-            this.cart = this.cart.filter((item) => item.product.name !== cartItem.product.name);
-            this.cart.push(cartItem);
+            const cartItemIndex = this.cart.findIndex((item) => item.product.name === cartItem.product.name);
+            if (cartItemIndex !== -1){
+                this.cart[cartItemIndex] = cartItem
+            } else {
+                this.cart.push(cartItem);
+            }
             setLocalStorage(LOCALSTORAGE_CART_KEY, JSON.stringify(this.cart));
         },
 
@@ -25,6 +29,12 @@ export const useCartStore = defineStore('cart', {
         clearCart() {
             removeLocalStorage(LOCALSTORAGE_CART_KEY);
             this.cart = [];
+        },
+        checkedAllCartItems() {
+            this.cart.forEach((item) => item.isChecked = true);
+        },
+        ucheckedAllCartItems() {
+            this.cart.forEach((item) => item.isChecked = false);
         }
     }
 })

@@ -32,12 +32,12 @@ export default defineComponent({
         const price = computed(() => props.card.price)
         const categories = computed(() => props.card.categories)
         const rating = computed(() => props.card.rating)
+        const productInCart = computed(() => {
+            return cartStore.$state.cart.find((item) => JSON.stringify(item.product) === JSON.stringify(props.card))
+        })
         const cartAmount = computed(() =>
-            cartStore.$state.cart.find((item) => JSON.stringify(item.product) === JSON.stringify(props.card))?.amount || 0
+            productInCart.value?.amount || 0
         );
-        const isInCart = computed(() =>
-            cartAmount.value > 0
-        )
 
         return {
             t,
@@ -50,7 +50,7 @@ export default defineComponent({
             searchTerm,
             isModalOpen,
             cartAmount,
-            isInCart,
+            productInCart,
             SIDEBAR_TEXT_COLOR
         }
     }
@@ -59,8 +59,9 @@ export default defineComponent({
 
 <template>
     <div class="group relative max-w-sm sm:hover:bg-gray-100 sm:hover:shadow-lg sm:hover:w-[calc(100%+32px)] sm:hover:h-[calc(100%+32px)] sm:hover:p-4 sm:hover:scale sm:hover:rounded-lg md:transition md:duration-300 sm:hover:scale-105 sm:hover:z-10 p-4"
-        :class="`${isInCart ? 'border-2 border-yellow-500' : ''}`" @click="isModalOpen = true">
-        <div v-if="isInCart" class="text-sm absolute top-0 right-0 flex items-center gap-2 border-l-2 border-b-2 border-yellow-500 text-yellow-500 p-1 rounded-sm">
+        :class="`${productInCart ? 'border-2 border-yellow-500' : ''}`" @click="isModalOpen = true">
+        <div v-if="productInCart"
+            class="text-sm absolute top-0 right-0 flex items-center gap-2 border-l-2 border-b-2 border-yellow-500 text-yellow-500 p-1 rounded-sm">
             <span>{{ cartAmount }}</span>
             <img src="/images/cart-xmark-svgrepo-com-yellow.svg" class="size-4" :alt="t('cart_header_icon_alt')" />
         </div>

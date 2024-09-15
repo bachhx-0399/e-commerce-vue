@@ -1,14 +1,11 @@
 <script lang="ts">
 import InputField from '@/components/commons/input-field/InputField.vue'
 import CustomButton from '@/components/commons/button/CustomButton.vue'
-import LoginEnum from '@/enums/login.enum'
 import { defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLoginStore } from '@/stores/login-store'
 import { useRouter } from 'vue-router'
 import { ENV } from '@/consts/env.const'
-import { LOCALSTORAGE_LOGIN_KEY } from '@/consts/login.const'
-import { setLocalStorage } from '@/utils/local-storage.utils'
 
 export default defineComponent({
     components: {

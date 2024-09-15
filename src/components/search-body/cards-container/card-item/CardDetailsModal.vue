@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, ref, toRefs, watch, type PropType } from 'vue';
+import { computed, toRefs, type PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCartStore } from '@/stores/cart-store';
 import { type CardProps } from '@/types/card.type';
@@ -17,6 +17,9 @@ export default {
         const { t } = useI18n();
         const cartStore = useCartStore();
         const { product } = toRefs(props);
+        const productInCart = computed(() => {
+            return cartStore.$state.cart.find((item) => JSON.stringify(item.product) === JSON.stringify(product.value))
+        })
         const amount = computed(() => {
             return cartStore.$state.cart.find((item) => JSON.stringify(item.product) === JSON.stringify(product.value))?.amount || 0;
         })
@@ -25,19 +28,37 @@ export default {
         })
 
         const increaseAmount = () => {
-            const newCartItem: CartItemInterface = { product: product.value, amount: amount.value + 1 };
+            const newCartItem: CartItemInterface = {
+                product: product.value,
+                amount: amount.value + 1,
+                isChecked: productInCart.value?.isChecked || true
+            };
             cartStore.addToCart(newCartItem);
         };
 
         const decreaseAmount = () => {
             if (amount.value <= 0) return
-            const newCartItem: CartItemInterface = { product: product.value, amount: amount.value - 1 };
+
+            let isChecked = productInCart.value?.isChecked || false
+            if (amount.value - 1 <= 0) {
+                isChecked = false
+            }
+            const newCartItem: CartItemInterface = {
+                product: product.value,
+                amount: amount.value - 1,
+                isChecked: isChecked
+            };
             cartStore.addToCart(newCartItem);
         };
 
         const removeFromCart = () => {
-            const newCartItem: CartItemInterface = { product: product.value, amount: amount.value };
+            const newCartItem: CartItemInterface = { product: product.value, amount: amount.value, isChecked: false };
             cartStore.removeFromCart(newCartItem);
+        };
+
+        const addToCart = () => {
+            const newCartItem: CartItemInterface = { product: product.value, amount: 1, isChecked: true };
+            cartStore.addToCart(newCartItem);
         };
 
         return {
@@ -45,7 +66,8 @@ export default {
             increaseAmount,
             decreaseAmount,
             removeFromCart,
-            product,
+            addToCart,
+            productInCart,
             amount,
             isMinimize
         };
@@ -114,14 +136,24 @@ export default {
             </div>
 
             <div class="container flex justify-end gap-4 py-4">
-                <!-- Close button -->
-                <button class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded h-full" @click="$emit('closeModal')">
-                    {{ t('close') }}
+                <!-- Add to Cart button -->
+                <button
+                    :class="`${productInCart ? 'bg-gray-500/[0.5]' : 'bg-green-500 hover:bg-green-600'} px-4 py-2 text-white rounded h-full`"
+                    @click="addToCart">
+                    {{ t('add_to_cart') }}
                 </button>
 
                 <!-- Remove from Cart button -->
-                <button :class="`${isMinimize ? 'bg-gray-500/[0.5] hover:bg-gray-500/[0.5]' : 'bg-blue-500'} px-4 py-2 hover:bg-blue-600 text-white rounded h-full`" @click="removeFromCart" :disabled="isMinimize">
+                <button
+                    :class="`${!productInCart ? 'bg-gray-500/[0.5]' : 'bg-blue-500 hover:bg-blue-600'} px-4 py-2 text-white rounded h-full`"
+                    @click="removeFromCart">
                     {{ t('remove_from_cart') }}
+                </button>
+
+                <!-- Close button -->
+                <button class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded h-full"
+                    @click="$emit('closeModal')">
+                    {{ t('close') }}
                 </button>
             </div>
         </div>
