@@ -8,6 +8,8 @@ interface CardProps {
     free_shipping: boolean
     brand?: string
     corlor?: string
+    popularity: number
+    price_range: string
 }
 
 const createCardFromServerData = (props: CardProps): CardProps => {
@@ -25,7 +27,9 @@ const createCardFromServerData = (props: CardProps): CardProps => {
         rating: props.rating,
         free_shipping: props.free_shipping,
         brand: props.brand,
-        corlor: color ?? 'Black'
+        corlor: color ?? 'Black',
+        popularity: props.popularity,
+        price_range: props.price_range,
     }
 }
 

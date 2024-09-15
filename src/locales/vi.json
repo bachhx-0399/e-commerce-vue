@@ -55,5 +55,10 @@
     "english": "Tiếng Anh",
     "cart_header_icon_alt": "Icon giỏ hàng",
     "logout": "Đăng xuất",
-    "please_login_first": "Vui lòng đăng nhập trước"
+    "please_login_first": "Vui lòng đăng nhập trước",
+    "unknown": "Không xác định",
+    "popularity": "Sự phổ biến",
+    "price_range": "Phạm vi giá",
+    "close": "Đóng",
+    "remove_from_cart": "Xóa trong giỏ hàng"
 }

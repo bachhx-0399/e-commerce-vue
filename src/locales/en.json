@@ -55,5 +55,10 @@
     "english": "English",
     "cart_header_icon_alt": "Cart icon",
     "logout": "Logout",
-    "please_login_first": "Please login first"
+    "please_login_first": "Please login first",
+    "unknown": "Unknown",
+    "popularity": "Popularity",
+    "price_range": "Price Range",
+    "close": "Close",
+    "remove_from_cart": "Remove from cart"
 }
