@@ -23,10 +23,6 @@ export default defineComponent({
         const filterParams = paramsStore.$state
         const isOpenCart = ref(false)
 
-        watch(isOpenCart, () => {
-            console.log(isOpenCart.value);
-        })
-
         watch(filterParams, (newFilterParams) => {
             const searchParams: Record<string, string> = {}
             const currentParams = router.currentRoute.value.query
