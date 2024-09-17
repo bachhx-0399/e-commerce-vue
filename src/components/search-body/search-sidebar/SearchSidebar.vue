@@ -1,6 +1,7 @@
 <script lang="ts">
 import BrandSidebar from './brand-sidebar/BrandSidebar.vue'
 import CategorySidebar from './category-sidebar/CategorySidebar.vue'
+import SidebarHeader from './SidebarHeader.vue'
 import RatingSidebar from './rating-sidebar/RatingSidebar.vue'
 import PriceSidebar from './price-sidebar/PriceSidebar.vue'
 import FreeShippingSidebar from './free-shipping-sidebar/FreeShippingSidebar.vue'
@@ -13,6 +14,7 @@ export default defineComponent({
     components: {
         BrandSidebar,
         CategorySidebar,
+        SidebarHeader,
         RatingSidebar,
         PriceSidebar,
         FreeShippingSidebar
@@ -36,7 +38,7 @@ export default defineComponent({
 
 <template>
     <div class="container p-3 md:p-0 w-auto">
-        <div class="container p-0 md:w-auto">Header placeholder</div>
+        <div class="container p-0 md:w-auto"><SidebarHeader /></div>
         <div class="container flex w-auto flex-col p-0 py-8 md:w-auto mb-10 md:m-auto md:max-w-[300px]">
             <CategorySidebar />
             <BrandSidebar />

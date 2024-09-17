@@ -1,0 +1,1 @@
+export const MAX_LENGTH_OF_SEARCH_BY_COLOR = 15
